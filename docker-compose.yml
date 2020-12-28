@@ -10,3 +10,9 @@ services:
       POSTGRES_DB: dataeng
       POSTGRES_USER: user
       POSTGRES_PASSWORD: 1234
+  minio:
+    container_name: minio
+    image: minio/minio:latest
+  airflow:
+    container_name: airflow
+    image: apache/airflow:2.0.0-python3.8

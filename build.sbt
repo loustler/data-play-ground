@@ -7,17 +7,18 @@ inThisBuild(
 )
 
 lazy val root = project
-    .in(file("."))
-    .settings(
-        name := "data-factory",
-        scalacOptions := Seq(
-            "-deprecation",
-            "-encoding",
-            "UTF-8",
-            "-feature",
-            "-unchecked"
-        ),
-        libraryDependencies ++= Seq(
-            "org.scalatest" %% "scalatest" % "3.2.3" % Test
-        )
+  .in(file("."))
+  .settings(
+    name := "data-factory",
+    scalacOptions := Seq(
+      "-deprecation",
+      "-encoding",
+      "UTF-8",
+      "-feature",
+      "-unchecked"
+    ),
+    libraryDependencies ++= Seq(
+      "org.apache.spark" %% "spark-core" % Versions.Spark,
+      "org.scalatest"    %% "scalatest"  % Versions.ScalaTest % Test
     )
+  )
