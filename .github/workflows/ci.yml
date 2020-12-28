@@ -26,4 +26,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         sbt \
-        clean compile coverage test it:test coverageReport scalastyle scalafmtCheckAll scalafmtSbtCheck
+        clean compile coverage test coverageReport scalastyle scalafmtCheckAll scalafmtSbtCheck
