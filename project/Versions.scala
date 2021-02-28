@@ -8,4 +8,8 @@ object Versions {
   val PicoCli: String = "4.6.1"
 
   val Log4j: String = "2.14.0"
+
+  val TypeSafeConfig: String = "1.4.1"
+
+  val PureConfig: String = "0.14.0"
 }
