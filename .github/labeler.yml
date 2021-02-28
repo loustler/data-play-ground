@@ -1,6 +1,10 @@
+enhancement:
+  - src/main/**
+  - src/test/**
+
 dependencies:
   - build.sbt
-  - project/*.scala
+  - project/**
 
 workflow:
   - "workflow/*.py"
