@@ -6,4 +6,6 @@ final case class StorageConfig(dataLake: DataLakeConfig)
 
 object StorageConfig {
   final case class DataLakeConfig(name: String)
+
+  final case class DataWarehouseConfig(name: String)
 }

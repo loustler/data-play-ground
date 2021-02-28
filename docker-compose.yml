@@ -37,3 +37,17 @@ services:
       /usr/bin/mc config host add data-pg http://minio:9000 $${MINIO_ACCESS_KEY} $${MINIO_SECRET_KEY};
       /usr/bin/mc mb -p data-pg/ground;
       "
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:latest
+    network_mode: bridge
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=ssm,kms,redshift
+      - DEFAULT_REGION=ap-northeast-2
+      - DEBUG=true
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"

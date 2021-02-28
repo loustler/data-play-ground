@@ -12,4 +12,6 @@ object Versions {
   val TypeSafeConfig: String = "1.4.1"
 
   val PureConfig: String = "0.14.0"
+
+  val AwsSdk: String = "2.16.8"
 }
