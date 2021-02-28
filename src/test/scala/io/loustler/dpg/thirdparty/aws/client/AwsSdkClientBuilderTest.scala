@@ -9,7 +9,7 @@ final class AwsSdkClientBuilderTest extends FunSpec {
       it("Inject options into any client will be success") {
         val ssmBuilder = SsmClient.builder()
 
-        val injectBuilder = AwsSdkClientBuilder.fromConfig(loadAppConfig.aws, ssmBuilder)
+        val injectBuilder = AwsSdkClientBuilder.fromConfig(loadAppConfig().aws, ssmBuilder)
 
         injectBuilder should not equal (ssmBuilder)
       }
