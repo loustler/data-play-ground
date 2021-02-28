@@ -11,7 +11,7 @@ final class AwsSdkClientBuilderTest extends FunSpec {
 
         val injectBuilder = AwsSdkClientBuilder.fromConfig(loadAppConfig().aws, ssmBuilder)
 
-        injectBuilder should not equal (ssmBuilder)
+        ssmBuilder.build() should not equal (ssmBuilder.build())
       }
     }
   }
