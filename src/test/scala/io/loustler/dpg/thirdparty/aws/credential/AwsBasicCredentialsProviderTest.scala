@@ -23,6 +23,38 @@ final class AwsBasicCredentialsProviderTest extends FunSpec {
         provider.resolveCredentials().accessKeyId() should ===(accessKey)
         provider.resolveCredentials().secretAccessKey() should ===(secretAccessKey)
       }
+      it("Throw NPE when given access key is empty string") {
+        val accessKey       = ""
+        val secretAccessKey = "my-secret-key"
+
+        val config = AwsConfig(
+          region = Region.AP_NORTHEAST_2,
+          accessKey = accessKey,
+          secretAccessKey = secretAccessKey,
+          endpoint = None
+        )
+
+        val provider = AwsBasicCredentialsProvider.fromConfig(config)
+
+        assertThrows[NullPointerException](provider.resolveCredentials().accessKeyId())
+        assertThrows[NullPointerException](provider.resolveCredentials().secretAccessKey())
+      }
+      it("Throw NPE when given secret access key is empty string") {
+        val accessKey       = "my-access-key"
+        val secretAccessKey = ""
+
+        val config = AwsConfig(
+          region = Region.AP_NORTHEAST_2,
+          accessKey = accessKey,
+          secretAccessKey = secretAccessKey,
+          endpoint = None
+        )
+
+        val provider = AwsBasicCredentialsProvider.fromConfig(config)
+
+        assertThrows[NullPointerException](provider.resolveCredentials().accessKeyId())
+        assertThrows[NullPointerException](provider.resolveCredentials().secretAccessKey())
+      }
       it("Throw NPE when given access key and secret access key is empty string") {
         val accessKey       = ""
         val secretAccessKey = ""
