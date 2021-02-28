@@ -24,13 +24,16 @@ lazy val root = project
       "-unchecked"
     ),
     libraryDependencies ++= Seq(
-      "org.apache.spark"        %% "spark-core" % Versions.Spark,
-      "org.apache.spark"        %% "spark-sql"  % Versions.Spark,
-      "org.apache.spark"        %% "spark-avro" % Versions.Spark,
-      "org.apache.logging.log4j" % "log4j-core" % Versions.Log4j,
-      "info.picocli"             % "picocli"    % Versions.PicoCli,
-      "org.scalatest"           %% "scalatest"  % Versions.ScalaTest  % Test,
-      "org.scalacheck"          %% "scalacheck" % Versions.ScalaCheck % Test
+      "org.apache.spark"        %% "spark-core"   % Versions.Spark,
+      "org.apache.spark"        %% "spark-sql"    % Versions.Spark,
+      "org.apache.spark"        %% "spark-avro"   % Versions.Spark,
+      "org.apache.logging.log4j" % "log4j-core"   % Versions.Log4j,
+      "info.picocli"             % "picocli"      % Versions.PicoCli,
+      "com.typesafe"             % "config"       % Versions.TypeSafeConfig,
+      "com.github.pureconfig"   %% "pureconfig"   % Versions.PureConfig,
+      "software.amazon.awssdk"   % "aws-sdk-java" % Versions.AwsSdk,
+      "org.scalatest"           %% "scalatest"    % Versions.ScalaTest  % Test,
+      "org.scalacheck"          %% "scalacheck"   % Versions.ScalaCheck % Test
     )
   )
   .settings(
