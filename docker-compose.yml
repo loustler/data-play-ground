@@ -10,3 +10,30 @@ services:
       POSTGRES_DB: dataeng
       POSTGRES_USER: user
       POSTGRES_PASSWORD: 1234
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: TESTKEY
+      MINIO_SECRET_KEY: TESTSECRET
+    command: server --compat /data
+  minio-mc:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    environment:
+      MINIO_ACCESS_KEY: TESTKEY
+      MINIO_SECRET_KEY: TESTSECRET
+    entrypoint: >
+      /bin/sh -c "
+      echo Waiting for minio service to start...;
+      apk add --no-cache curl;
+      while ! curl -I 'http://minio:9000/minio/health/live' 2>&1 | grep -w '200\|301';
+      do
+        sleep 10;
+      done;
+      echo Minio is started;
+      /usr/bin/mc config host add data-pg http://minio:9000 $${MINIO_ACCESS_KEY} $${MINIO_SECRET_KEY};
+      /usr/bin/mc mb -p data-pg/ground;
+      "

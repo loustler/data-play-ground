@@ -1,0 +1,20 @@
+enhancement:
+  - src/main/**
+  - src/test/**
+
+dependencies:
+  - build.sbt
+  - project/**
+
+workflow:
+  - "workflow/*.py"
+  - "workflow/**/*.py"
+
+configuration:
+  - src/**/*.conf
+  - "*.conf"
+  - ".gitignore"
+
+project-management:
+  - ".github/*"
+  - "*.md"
