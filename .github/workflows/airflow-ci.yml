@@ -1,0 +1,75 @@
+name: Airflow DAGs Continious Integration
+
+on:
+  push:
+    paths:
+      - "workflow/**"
+  pull_request:
+    paths:
+      - "workflow/**"
+
+jobs:
+  airflow-unit-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        airflow-version: [2.0.1]
+        python-version: [3.6, 3.7, 3.8]
+    services:
+      postgres:
+        image: postgres:12-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: airflow
+          POSTGRES_USER: airflow
+          POSTGRES_PASSWORD: airflow
+    env:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@localhost:5432/airflow?sslmode=disable
+      AIRFLOW__CORE__UNIT_TEST_MODE: True
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "Setup python"
+        uses: actions/setup-python@v2
+        id: setup_python
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Cache pip
+        uses: actions/cache@v2.1.4
+        with:
+          # This path is specific to Ubuntu
+          path: ~/.cache/pip
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Setup Env
+        run: |
+          sudo apt-get install -y build-essential libldap2-dev libsasl2-dev slapd ldap-utils tox lcov valgrind
+          sudo apt-get autoremove -yqq --purge
+          sudo apt-get clean
+      - name: Install dependencies
+        env:
+          AIRFLOW_VERSION: ${{ matrix.airflow-version }}
+          PYTHON_MAJOR_VERSION: ${{ matrix.python-version }}
+        run: |
+          pip install --upgrade pip==20.2.4
+          pip install apache-airflow==$AIRFLOW_VERSION psycopg2 \
+            --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-$AIRFLOW_VERSION/constraints-$PYTHON_MAJOR_VERSION.txt"
+          pip install -r docker/requirements.txt
+          pip install -r docker/requirements-dev.txt
+          pip list
+      - name: Prepare test
+        run: |
+          airflow db init
+      - name: DAGs test
+        run: pytest workflow/tests/
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: pytest-results-${{ matrix.python-version }}
+          path: junit/test-results-${{ matrix.python-version }}.xml

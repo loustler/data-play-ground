@@ -1,0 +1,16 @@
+dependencies:
+  - build.sbt
+  - project/*.scala
+
+workflow:
+  - "workflow/*.py"
+  - "workflow/**/*.py"
+
+configuration:
+  - src/**/*.conf
+  - "*.conf"
+  - ".gitignore"
+
+project-management:
+  - ".github/*"
+  - "*.md"
