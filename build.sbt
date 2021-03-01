@@ -1,7 +1,7 @@
 inThisBuild(
   Seq(
     organization := "io.loustler",
-    scalaVersion := "2.12.12",
+    scalaVersion := "2.12.13",
     version := "0.1.0",
     javacOptions ++= Seq("-source", "11", "-target", "11")
   )
