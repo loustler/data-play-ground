@@ -17,9 +17,10 @@ object RawMobilePriceClassificationToDataLake extends SparkJob {
     val hadoopConfig = new SparkConf()
 
     hadoopConfig
-      .set("spark.hadoop.fs.s3a.access.key", appConfig.aws.accessKey)
-      .set("spark.hadoop.fs.s3a.secret.key", appConfig.aws.secretAccessKey)
-      .set("spark.hadoop.fs.s3a.endpoint", appConfig.storage.dataLake.endpoint.getOrElse(""))
+      .set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+      .set("spark.hadoop.fs.s3a.access.key", "TESTKEY")
+      .set("spark.hadoop.fs.s3a.secret.key", "TESTSECRET")
+      .set("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000")
       .set("spark.hadoop.fs.s3a.connection.ssl.enabled", "false")
       .set("spark.hadoop.fs.s3a.path.style.access", "true")
       .set("spark.hadoop.fs.s3a.committer.name", "directory")
@@ -30,13 +31,13 @@ object RawMobilePriceClassificationToDataLake extends SparkJob {
       .builder()
       .master("local")
       .appName("MobilePriceClassification")
-//      .config(hadoopConfig)
+      .config(hadoopConfig)
       .getOrCreate()
-
-    println(spark.sqlContext.getAllConfs)
 
     val csv = spark.read.option("header", true).csv(resolveDataSourcePath(DataFormat.CSV, "telecom_users"))
 
-    csv.write.parquet(destination(appConfig.storage, "raw_telecom_users", DataFormat.Parquet))
+    val path = destination(appConfig.storage, "kaggle/raw_telecom_users", DataFormat.Parquet)
+
+    csv.write.parquet(path)
   }
 }
