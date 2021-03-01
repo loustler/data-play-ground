@@ -14,4 +14,7 @@ object Versions {
   val PureConfig: String = "0.14.0"
 
   val AwsSdk: String = "2.16.8"
+
+  // Spark 3.0.1 use hadoop 2.7.4
+  val Hadoop: String = "2.7.4"
 }

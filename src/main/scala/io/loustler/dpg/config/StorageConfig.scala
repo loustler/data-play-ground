@@ -6,7 +6,7 @@ final case class StorageConfig(dataLake: DataLakeConfig)
 
 object StorageConfig {
 
-  final case class DataLakeConfig(name: String) {
+  final case class DataLakeConfig(name: String, endpoint: Option[String]) {
     val path = s"s3a://$name"
   }
 

@@ -27,13 +27,17 @@ lazy val root = project
       "org.apache.spark"        %% "spark-core"   % Versions.Spark,
       "org.apache.spark"        %% "spark-sql"    % Versions.Spark,
       "org.apache.spark"        %% "spark-avro"   % Versions.Spark,
+      "org.apache.hadoop"        % "hadoop-aws"   % Versions.Hadoop,
       "org.apache.logging.log4j" % "log4j-core"   % Versions.Log4j,
       "info.picocli"             % "picocli"      % Versions.PicoCli,
       "com.typesafe"             % "config"       % Versions.TypeSafeConfig,
       "com.github.pureconfig"   %% "pureconfig"   % Versions.PureConfig,
-      "software.amazon.awssdk"   % "aws-sdk-java" % Versions.AwsSdk,
-      "org.scalatest"           %% "scalatest"    % Versions.ScalaTest  % Test,
-      "org.scalacheck"          %% "scalacheck"   % Versions.ScalaCheck % Test
+      "software.amazon.awssdk"   % "aws-sdk-java" % Versions.AwsSdk excludeAll (
+        ExclusionRule("com.fasterxml.jackson.core"),
+        ExclusionRule("com.fasterxml.jackson.dataformat")
+      ),
+      "org.scalatest"  %% "scalatest"  % Versions.ScalaTest  % Test,
+      "org.scalacheck" %% "scalacheck" % Versions.ScalaCheck % Test
     )
   )
   .settings(
