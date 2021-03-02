@@ -1,7 +1,7 @@
 inThisBuild(
   Seq(
     organization := "io.loustler",
-    scalaVersion := "2.12.13",
+    scalaVersion := "2.12.12",
     version := "0.1.0",
     javacOptions ++= Seq("-source", "11", "-target", "11")
   )
@@ -9,7 +9,7 @@ inThisBuild(
 
 addCommandAlias(
   "ci",
-  "clean; coverage; compile; test:compile; test; coverageReport; scalafmtCheckAll; scalafmtSbtCheck"
+  "clean; reload; coverage; compile; test:compile; test; coverageReport; scalafmtCheckAll; scalafmtSbtCheck"
 )
 
 lazy val root = project
