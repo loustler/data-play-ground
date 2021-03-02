@@ -1,7 +1,8 @@
 package io.loustler.dpg.job.raw
 
 import io.loustler.dpg.job.SparkJob
-import io.loustler.dpg.model.DataFormat
+import io.loustler.dpg.model.{ DataFormat, JobType }
+import io.loustler.dpg.util.JobUtil
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
@@ -36,7 +37,7 @@ object RawMobilePriceClassificationToDataLake extends SparkJob {
 
     val csv = spark.read.option("header", true).csv(resolveDataSourcePath(DataFormat.CSV, "telecom_users"))
 
-    val path = destination(appConfig.storage, "kaggle/raw_telecom_users", DataFormat.Parquet)
+    val path = JobUtil.path(appConfig.storage, JobType.RawDataJob, DataFormat.Parquet, "kaggle/raw_telecom_users")
 
     csv.write.parquet(path)
   }
