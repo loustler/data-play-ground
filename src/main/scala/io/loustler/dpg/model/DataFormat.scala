@@ -15,8 +15,10 @@ object DataFormat {
       case Parquet => "parquet"
       case ORC     => "orc"
       case Text    => "txt"
+      case f       => throw new UnsupportedOperationException(s"$f cannot support file extension")
     }
 
+  case object JDBC    extends DataFormat
   case object CSV     extends DataFormat
   case object JSON    extends DataFormat
   case object Parquet extends DataFormat

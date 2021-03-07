@@ -1,8 +1,7 @@
 package io.loustler.dpg.model.spark.writer
 
-import io.loustler.dpg.model.{ CompressionType, DataFormat }
-import org.apache.spark.sql
-import org.apache.spark.sql.{ DataFrame, Row }
+import io.loustler.dpg.model.CompressionType
+import org.apache.spark.sql.{ DataFrame, Row, DataFrameWriter => SparkWriter }
 
 import scala.collection.mutable.{ Map => MutableMap }
 
@@ -38,7 +37,7 @@ object DataFrameWriter {
       self
     }
 
-    def writer(df: DataFrame): sql.DataFrameWriter[Row] =
+    def writer(df: DataFrame): SparkWriter[Row] =
       options.foldLeft(df.write) { case (writer, (key, value)) =>
         writer.option(key, value)
       }
@@ -341,6 +340,10 @@ object DataFrameWriter {
       * @return
       */
     def lineSep(sep: String): TextWriter = option("lineSep", sep)
+  }
+
+  private[writer] final class JdbcWriter extends BaseWriter[JdbcWriter] {
+    override def write(df: DataFrame, path: String): Unit = ???
   }
 
 }
