@@ -6,7 +6,7 @@ import org.scalatest.BeforeAndAfterAll
 import org.scalatest.enablers.Emptiness
 import org.scalatest.funspec.AnyFunSpecLike
 
-trait SparkJobTestingSpec extends AnyFunSpecLike with TestingSpec with BeforeAndAfterAll {
+trait SharedSparkSpec extends AnyFunSpecLike with TestingSpec with BeforeAndAfterAll {
   private var _spark: SparkSession = _
 
   protected def sparkConf: SparkConf =

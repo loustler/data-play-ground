@@ -11,6 +11,15 @@ sealed trait DataFrameReader {
 }
 
 object DataFrameReader {
+  def csv: CsvReader = new CsvReader
+
+  def json: JsonReader = new JsonReader
+
+  def orc: OrcReader = new OrcReader
+
+  def parquet: ParquetReader = new ParquetReader
+
+  def text: TextReader = new TextReader
 
   private[reader] abstract class BaseReader[T <: BaseReader[T]] extends DataFrameReader { self: T =>
     private val readOptions: MutableMap[String, String] = MutableMap.empty

@@ -1,11 +1,11 @@
 package io.loustler.dpg.model.spark.writer
 
 import io.loustler.dpg.model.CompressionType
-import io.loustler.dpg.testing.SparkJobTestingSpec
+import io.loustler.dpg.testing.SharedSparkSpec
 
-final class DataFrameWriterTest extends SparkJobTestingSpec {
+final class DataFrameWriterTest extends SharedSparkSpec {
   describe("DataFrameWriter") {
-    it("Success create correct writer instance from DataFormat") {
+    it("Success create correct writer instance") {
       DataFrameWriter.parquet shouldBe a[DataFrameWriter.ParquetWriter]
       DataFrameWriter.json shouldBe a[DataFrameWriter.JsonWriter]
       DataFrameWriter.csv shouldBe a[DataFrameWriter.CsvWriter]
@@ -13,7 +13,7 @@ final class DataFrameWriterTest extends SparkJobTestingSpec {
       DataFrameWriter.text shouldBe a[DataFrameWriter.TextWriter]
     }
 
-    describe("checks implementations' options") {
+    describe("checks available options") {
       it("ParquetWriter can use all available options") {
         val writer = DataFrameWriter.parquet
         writer.options should be(empty)
