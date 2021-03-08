@@ -3,7 +3,7 @@ package io.loustler.dpg.config
 import com.typesafe.config.ConfigValueFactory
 import io.loustler.dpg.testing.FunSuite
 
-import collection.JavaConverters._
+import scala.collection.JavaConverters._
 
 final class AwsConfigTest extends FunSuite {
   test("Success read config whether endpoint is provide or not") {

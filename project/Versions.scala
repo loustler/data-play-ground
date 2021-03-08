@@ -14,4 +14,6 @@ object Versions {
   val PureConfig: String = "0.14.0"
 
   val AwsSdk: String = "2.16.8"
+
+  val Hadoop: String = "3.3.0"
 }
