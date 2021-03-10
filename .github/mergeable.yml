@@ -1,6 +1,6 @@
 version: 2
 mergeable:
-  - when: pull_request.*, pull_request_review.*
+  - when: pull_request.*, pull_request_review.*, status.*, check_suite.*
     validate:
       - do: title
         # Do not merge when it is marked work in progress (WIP)
@@ -15,8 +15,26 @@ mergeable:
               regex: ^\[DONT-MERGE\]
               message: Do not merge this PR yet.
       - do: label
-        must_exclude:
-          regex: 'wip'
-      - do: label
-        must_exclude:
-          regex: 'dont-merge'
+        or:
+          - must_exclude:
+              regex: 'wip'
+          - must_exclude:
+              regex: 'dont-merge'
+      - do: approvals
+        min:
+          count: 1
+        required:
+          reviewers: ['loustler']
+          assignees: true
+          requested_reviewers: true
+        block:
+          changes_requested: true
+    pass:
+      - do: checks
+        status: success
+        payload:
+          title: Ready to merge
+          summary: This PR ready to merge
+      - do: labels
+        labels: ['ready-to-merge']
+        mode: add
