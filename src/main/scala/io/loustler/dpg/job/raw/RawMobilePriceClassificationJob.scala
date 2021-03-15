@@ -2,6 +2,7 @@ package io.loustler.dpg.job.raw
 
 import io.loustler.dpg.config.AppConfig
 import io.loustler.dpg.job.SparkJob
+import io.loustler.dpg.model.spark.reader.DataFrameReader
 import io.loustler.dpg.model.{ DataFormat, JobType }
 import io.loustler.dpg.util.JobUtil
 import org.apache.spark.sql.SparkSession
@@ -16,10 +17,12 @@ final class RawMobilePriceClassificationJob extends SparkJob {
     config: AppConfig,
     spark: SparkSession
   ): Unit = {
-    val csv = spark.read.option("header", true).csv(SparkJob.resolveDataSourcePath(DataFormat.CSV, "telecom_users"))
+    val reader = DataFrameReader.csv.header(true)
+
+    val df = reader.read(spark, SparkJob.resolveDataSourcePath(DataFormat.CSV, "telecom_users"))
 
     val path = JobUtil.path(config.storage, JobType.RawDataJob, DataFormat.Parquet, "kaggle/raw_telecom_users")
 
-    csv.write.parquet(path)
+    df.write.parquet(path)
   }
 }
