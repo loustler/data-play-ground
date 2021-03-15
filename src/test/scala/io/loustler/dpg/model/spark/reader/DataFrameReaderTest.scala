@@ -5,11 +5,11 @@ import io.loustler.dpg.testing.SharedSparkSpec
 final class DataFrameReaderTest extends SharedSparkSpec {
   describe("DataFrameReader") {
     it("Success create correct writer instance") {
-      DataFrameReader.csv shouldBe a[DataFrameReader.CsvReader]
-      DataFrameReader.json shouldBe a[DataFrameReader.JsonReader]
-      DataFrameReader.orc shouldBe a[DataFrameReader.OrcReader]
-      DataFrameReader.parquet shouldBe a[DataFrameReader.ParquetReader]
-      DataFrameReader.text shouldBe a[DataFrameReader.TextReader]
+      DataFrameReader.csv shouldBe a[CsvReader]
+      DataFrameReader.json shouldBe a[JsonReader]
+      DataFrameReader.orc shouldBe a[OrcReader]
+      DataFrameReader.parquet shouldBe a[ParquetReader]
+      DataFrameReader.text shouldBe a[TextReader]
     }
 
     describe("checks available options") {

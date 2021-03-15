@@ -6,11 +6,11 @@ import io.loustler.dpg.testing.SharedSparkSpec
 final class DataFrameWriterTest extends SharedSparkSpec {
   describe("DataFrameWriter") {
     it("Success create correct writer instance") {
-      DataFrameWriter.parquet shouldBe a[DataFrameWriter.ParquetWriter]
-      DataFrameWriter.json shouldBe a[DataFrameWriter.JsonWriter]
-      DataFrameWriter.csv shouldBe a[DataFrameWriter.CsvWriter]
-      DataFrameWriter.orc shouldBe a[DataFrameWriter.OrcWriter]
-      DataFrameWriter.text shouldBe a[DataFrameWriter.TextWriter]
+      DataFrameWriter.parquet shouldBe a[ParquetWriter]
+      DataFrameWriter.json shouldBe a[JsonWriter]
+      DataFrameWriter.csv shouldBe a[CsvWriter]
+      DataFrameWriter.orc shouldBe a[OrcWriter]
+      DataFrameWriter.text shouldBe a[TextWriter]
     }
 
     describe("checks available options") {
