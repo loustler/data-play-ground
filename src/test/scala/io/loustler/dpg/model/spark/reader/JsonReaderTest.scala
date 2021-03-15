@@ -63,7 +63,7 @@ final class JsonReaderTest extends SharedSparkSpec {
       reader.options should have size 18
 
       reader.allowNonNumericNumbers(true)
-      reader.options should have size 18
+      reader.options should have size 19
     }
   }
 }
