@@ -20,15 +20,15 @@ mergeable:
               regex: 'wip'
           - must_exclude:
               regex: 'dont-merge'
-      - do: approvals
-        min:
-          count: 1
-        required:
-          reviewers: ['loustler']
-          assignees: true
-          requested_reviewers: true
-        block:
-          changes_requested: true
+#      - do: approvals
+#        min:
+#          count: 1
+#        required:
+#          reviewers: ['loustler']
+#          assignees: true
+#          requested_reviewers: true
+#        block:
+#          changes_requested: true
     pass:
       - do: checks
         status: success
