@@ -21,7 +21,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Cache SBT
-      uses: actions/cache@v2.1.4
+      uses: actions/cache@v2.1.6
       with:
         path: |
           ~/.ivy2/cache
